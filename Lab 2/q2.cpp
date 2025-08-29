@@ -8,9 +8,9 @@ cin >> bench;
 cout << "Enter seats\n";
 cin >> seat;
 
-int **arr = new int *[bench];
+int **arr = new int *[bench]{};
 for(int i=0;i< bench;i++){
-    arr[i] = new int[seat];
+    arr[i] = new int[seat]{};
 }
 
 cout << "enter 0 for unoccupied and 1 for occupied\n";
