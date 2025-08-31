@@ -1,59 +1,53 @@
-#include <iostream> //still in work
+#include <iostream>
 using namespace std;
 
-int *resizeArray( int *old, int oldSize, int newSize){
-    if(newSize==oldSize){
-        return old;
-    }
-    int *newArr = new int[newSize];
+int *resizeArray(int *oldArr, int oldSize, int newSize){
+    if(newSize==oldSize){return oldArr;}
+    int *newArr = new int[newSize]{};
     int limit;
-    if(oldSize < newSize){
+    if(oldSize<newSize){
         limit=oldSize;
-    }else{limit=newSize;}
-
+    }else limit=newSize;
     for(int i=0;i<limit;i++){
-        newArr[i] = old[i];
+        newArr[i]=oldArr[i];
     }
-    
-    delete[] old;
+    delete[] oldArr;
     return newArr;
-
 }
+
 
 int main(){
-int n;
-cout << "Enter number of months\n";
-cin >> n;
-
-int* arr=new int[n]{};
- for(int i=0;i<n;i++){
-        cout << "Enter the value at position " << i+1 << endl;
+    int n;
+    cout << "Enter number of months\n";
+    cin >> n;
+    int* arr = new int[n]{};
+    for(int i=0;i<n;i++){
+        cout << "Enter expense for month " << i+1 << endl;
         cin >> arr[i];
     }
-cout << "original Array\n";
- for(int i=0;i<size ;i++){
-        cout << arr[i] << ", " ;
-    }
-int num,size;
-cout << "enter 1 to resize or enter 2 for not\n";
-cin>>num;
-if(num==1){
-    cout << "enter new size\n";
-    cin>>size;
-    arr = resizeArray(arr,n, size);
-    for (int i=n; i<size;i++){
-        cin >> arr[i];
-    }
-    cout << "resized to bigger array\n";
-    for(int i=0;i<size;i++){
+    cout << "Expenses entered :\n";
+    for(int i=0;i<n;i++){
         cout << arr[i] << " ";
-        cout << "\n";
     }
-
-}
-
-delete[] arr;
-
-
+    cout<<endl;
+    int choice;
+    cout << "do you want to resize or exit, press 2 to resize or 3 to exit\n";
+    cin >> choice;
+    if(choice==3){
+        return 0;
+    }else
+    cout << "Enter number for new size\n";
+    int newSize;
+    cin >> newSize;
+    arr=resizeArray(arr,n,newSize);
+     for(int i=n;i<newSize;i++){
+        cout << "Enter expense for month " << i+1 << endl;
+        cin >> arr[i];
+    }
+    cout << "Expenses entered :\n";
+    for(int i=0;i<newSize;i++){
+        cout << arr[i] << " ";
+    }
+    
 
 }
