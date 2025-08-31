@@ -38,4 +38,9 @@ int main()
         int avg = sum / num_course[i];
         cout << avg << endl;
     }
+    for(int i=0;i<students;i++){
+        delete[] marks[i];
+    }
+    delete[] marks;
+    delete[] num_course;
 }
