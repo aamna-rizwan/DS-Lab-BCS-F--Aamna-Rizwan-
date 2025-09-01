@@ -24,7 +24,7 @@ int main(){
     }
     for(int i=0;i<row;i++){
         for(int j=0;j<books[i];j++){
-            cout << id[i][j] << " ";
+            cout <<"Category "<< row << " : "<<id[i][j] << " ";
         }cout << endl;
     }
      int search;
