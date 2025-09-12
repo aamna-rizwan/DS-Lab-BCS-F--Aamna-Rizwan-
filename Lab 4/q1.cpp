@@ -23,4 +23,5 @@ int main() {
           }
       }
   }cout << "not found!\n";
+  delete []arr;
 }
