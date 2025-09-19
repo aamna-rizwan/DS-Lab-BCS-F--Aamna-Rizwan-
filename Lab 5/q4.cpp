@@ -1,4 +1,3 @@
-//in working
 #include <iostream>
 using namespace std;
 int ackermann(int m, int n){
@@ -18,5 +17,5 @@ int main() {
   cout << "enter num2 ";
   cin >> num2;
   int result = ackermann(num1,num2);
-  cout << result << " ";
+  cout << "ackermann" <<" = " << result << endl;
 }
