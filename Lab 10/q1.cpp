@@ -1,76 +1,82 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
 class MaxHeap{
     private: 
-    int *arr;
-    int capacity;
-    int size =0;
-    public:
-    MaxHeap(int c) : capacity(c){
-        arr = new int[capacity];
-    }
-    int parent(int i) {return(i-1)/2;}
-    int left(int i) {return(2*i+1);}
-    int right(int i) {return(2*i+2);}
+    vector<int> heap;
+    int parent(int i){return (i-1)/2;}
+    int leftChild(int i){return (2*i)+1;}
+    int rightChild(int i){return (2*i)+2;}
     
-    void heapify_up(int i){
-        while(i!=0 && arr[i]>arr[parent(i)]){
-            int temp = arr[i];
-            arr[i]=arr[parent(i)];
-            arr[parent(i)] = temp;
+    void heapifyUp(int i){
+        while( i>0 && heap[parent(i)] < heap[i]){
+            swap(heap[i],heap[parent(i)]);
             i=parent(i);
         }
     }
     
-    void insert(int val){
-        if(size>=capacity){
-            cout << "Overflow" << endl;
-            return;
+    void heapifyDown(int i){
+        int largest =i;
+        int left = leftChild(i);
+        int right = rightChild(i);
+        if(left < heap.size() && heap[left] > heap[largest]){
+            largest=left;
+        }if(right<heap.size() && heap[right] > heap[largest]){
+            largest=right;
         }
-        arr[size]=val;
-        heapify_up(size);
-        size++;
-    } 
-    
-    void heapify_down(int i){
-        int largest=i;
-        int l =left(i);
-        int r = right(i);
-        
-        if(l<size && arr[l] > arr[largest])
-        largest = 1;
-        if(r<size && arr[r] > arr[largest])
-        largest = r;
-        
         if(largest!=i){
-            int temp = arr[i];
-            arr[i]=arr[largest];
-            arr[largest] = temp;
-            heapify_down(largest);
+            swap(heap[i],heap[largest]);
+            heapifyDown(largest);
+        }
+    }
+    
+    
+    public:
+    void buildHeap(vector<int> arr){
+        heap=arr;
+        for(int i = (heap.size()/2) -1;i>=0;i--){
+            heapifyDown(i);
         }
     }
     
     void update_key(int i, int new_val){
-        if(i>=capacity){
-            cout << "overflow" << endl;
+        if(i<0 || i>=heap.size()){
+            cout << "invalid" << endl;
             return;
         }
-        arr[i]=new_val;
+        int old = heap[i];
+        heap[i] = new_val;
+        if(new_val > old) heapifyUp(i);
+        else heapifyDown(i);
     }
     
-    void delete_val(int arr[],int i){
-        int num = arr[size];
-        int temp=arr[0];
-        arr[0]=arr[size];
-        arr[size]=temp;
-    
-        heapify_down(i);
+    void deleteElement(int i){
+        if(i<0 || i>=heap.size()){
+            cout << "inavlid" << endl;
+            return;
+        }
+        heap[i]=heap.back();
+        heap.pop_back();
+        heapifyUp(i);
+        heapifyDown(i);
     }
-    
-    
+    void display(){
+        for(int val:heap){
+            cout << val << " ";
+        }
+        cout << endl;
+    }
 };
 
 int main() {
-   
+    MaxHeap heap;
+    vector<int> num ={8,7,6,5,4};
+    heap.buildHeap(num);
+    heap.display();
+    heap.update_key(2,1);
+    heap.display();
+    heap.deleteElement(1);
+    heap.display();
+
 }
