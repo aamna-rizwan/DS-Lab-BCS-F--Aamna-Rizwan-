@@ -20,11 +20,10 @@ class Hash{
     
     int hashFunction(int key,string v){
     int sum = 0
-    int d = v.size()
-    for(int i=1;i<=d;i++){
-        sum = sum + int[value[i]];
-    }
-    return sum%TABLE_SIZE;
+    for(int i=0;i<v.length();i++){
+        sum = sum +v[i];
+        }
+        return sum%100;
     }
     
     void add_record(string msg){
