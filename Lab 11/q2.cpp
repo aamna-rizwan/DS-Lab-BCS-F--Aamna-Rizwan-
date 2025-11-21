@@ -28,7 +28,7 @@ class Hash{
     
     void add_record(string msg){
         int index = hashFunction (key);
-        Node *newNode = new Node (key, value);
+        Node *newNode = new Node (key, msg);
         if(table[index] == nullptr){
             table[index]=newNode;
         }else{
