@@ -1,1 +1,84 @@
 
+#include <iostream>
+#include <string>
+using namespace std;
+const int SIZE = 100;
+
+class Node{
+    public:
+    int key;
+    string value;
+    Node *next;
+    Node(int k, const string &v){
+        key=k;
+        value=v;
+        next=nullptr;
+    }
+};
+class Hash{
+    public:
+    Node *buckets[SIZE];
+    
+    int hashFunction(int key,string v){
+    int sum = 0
+    for(int i=0;i<v.length();i++){
+        sum = sum + v[i];
+    }
+    return sum%SIZE;
+    }
+    
+    void insert(int key,string msg){
+        int index = hashFunction (key,msg);
+        Node *newNode = new Node (key, value);
+        if(buckets[index] == nullptr){
+            buckets[index]=newNode;
+        }else{
+            Node *temp=buckets[index];
+            Node *store=head;
+            if(temp->key==key){
+                temp->value=value;
+                delete newNode;
+                return;
+            }
+            head=temp;
+            temp->next=store;
+            delete newNode;
+        }
+    }
+    
+    string search(int key){
+        int index = hashFunction(key);
+        Node *temp= buckets[index];
+        while(temp!=nullptr){
+            if(temp->key==key){
+                return temp->value;
+            }
+            temp=temp->next;
+        }
+        return "Error! Not found\n";
+    }
+    
+    void deleteKey(int key){
+        int index=hashFunction (key);
+        Node *temp=buckets[index];
+        Node *prev=nullptr;
+        while (temp!=nullptr && temp->key!=key){
+            prev=temp;
+            temp=temp->next;
+        }
+        if(temp=nullptr){
+            cout << "Key" << key << "not found\n" << endl;
+            return;
+        }
+        if(prev=nullptr){
+            table[index]=temp->next;
+        }else
+        prev->next = temp->next;
+        delete temp;
+        cout << "Key " << key << "deleted successfully " << endl;
+    }
+};
+
+int main() {
+   return 0;
+}
